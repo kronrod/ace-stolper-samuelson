@@ -1,0 +1,448 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     17623,        439]
+NotebookOptionsPosition[     17092,        418]
+NotebookOutlinePosition[     17436,        433]
+CellTagsIndexPosition[     17393,        430]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"path", " ", "=", " ", "\"\<..\>\""}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"consumerEach", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"firmsPerGood", " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iterations", " ", "=", " ", "500"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"shockAt", " ", "=", " ", "5000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"stockPersistence", " ", "=", " ", "1.0"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"smartPriceAdaption", " ", "=", " ", "1"}], ";"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{"*", " ", "1", " ", "or", " ", "0"}], " ", "**)"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<JLink`\>\"", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ReinstallJava", "[", 
+    RowBox[{"ClassPath", "\[Rule]", "  ", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], " ", "<>", " ", 
+      "\"\<\\\\..\\\\bin\>\""}]}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"simulate", "[", 
+    RowBox[{"seed_", ",", " ", "size_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"country", " ", "=", " ", 
+      RowBox[{"JavaNew", "[", 
+       RowBox[{"\"\<com.abs.World\>\"", ",", " ", "seed", ",", " ", 
+        RowBox[{"consumerEach", " ", "*", " ", "size"}], ",", " ", 
+        RowBox[{"firmsPerGood", " ", "*", " ", "size"}], ",", " ", "shockAt", 
+        ",", " ", "stockPersistence", ",", " ", "smartPriceAdaption"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"country", "@", 
+      RowBox[{"step", "[", " ", "iterations", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"legend", " ", "=", " ", 
+      RowBox[{"country", "@", 
+       RowBox[{
+        RowBox[{"getData", "[", "]"}], "@", 
+        RowBox[{"getLabels", "[", "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"data", " ", "=", " ", 
+      RowBox[{"country", "@", 
+       RowBox[{
+        RowBox[{"getData", "[", "]"}], "@", 
+        RowBox[{"getAllData", "[", "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"dataT", " ", "=", " ", 
+      RowBox[{"Transpose", "[", "data", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"ReleaseJavaObject", "[", "country", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"last", " ", "=", " ", 
+      RowBox[{"data", "[", 
+       RowBox[{"[", "iterations", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"result", "  ", "=", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<Italian util\>\"", " ", ",", "  ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Swiss utility\>\"", ",", " ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Fondue price in pizzas\>\"", ",", " ", 
+          RowBox[{
+           RowBox[{"last", "[", 
+            RowBox[{"[", "8", "]"}], "]"}], "/", " ", 
+           RowBox[{"last", "[", 
+            RowBox[{"[", "5", "]"}], "]"}]}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Swiss wage in pizzas\>\"", ",", " ", 
+          RowBox[{
+           RowBox[{"last", "[", 
+            RowBox[{"[", "11", "]"}], "]"}], "/", 
+           RowBox[{"last", "[", 
+            RowBox[{"[", "5", "]"}], "]"}]}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Italian wage in pizzas\>\"", ",", " ", 
+          RowBox[{
+           RowBox[{"last", "[", 
+            RowBox[{"[", "14", "]"}], "]"}], "/", 
+           RowBox[{"last", "[", 
+            RowBox[{"[", "5", "]"}], "]"}]}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Pizzas produced\>\"", ",", " ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Fondue produced\>\"", ",", " ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "6", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Pizzas consumed\>\"", ",", " ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "4", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", " ", 
+         RowBox[{"\"\<Fondue consumed\>\"", ",", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "7", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", " ", 
+         RowBox[{"\"\<Swiss hours worked\>\"", ",", " ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "10", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", " ", 
+         RowBox[{"\"\<Italian hours worked\>\"", ",", " ", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", "13", "]"}], "]"}]}], "}"}]}], "}"}]}], ";", 
+     "\[IndentingNewLine]", "result"}], "\[IndentingNewLine]", ")"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"labels", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"Transpose", "[", 
+     RowBox[{"simulate", "[", 
+      RowBox[{"313", ",", " ", "1"}], "]"}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"many", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Transpose", "[", 
+       RowBox[{"simulate", "[", 
+        RowBox[{
+         RowBox[{"113", "+", "i"}], ",", " ", "10"}], "]"}], "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", " ", "100"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TableForm", "[", 
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{"labels", ",", " ", 
+      RowBox[{"Mean", "[", "many", "]"}]}], "}"}], "]"}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"many", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Transpose", "[", 
+       RowBox[{"simulate", "[", 
+        RowBox[{
+         RowBox[{"113", "+", "i"}], ",", " ", "30"}], "]"}], "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", " ", "100"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TableForm", "[", 
+   RowBox[{"Transpose", "[", 
+    RowBox[{"{", 
+     RowBox[{"labels", ",", " ", 
+      RowBox[{"Mean", "[", "many", "]"}]}], "}"}], "]"}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"many", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Transpose", "[", 
+       RowBox[{"simulate", "[", 
+        RowBox[{
+         RowBox[{"113", "+", "i"}], ",", " ", "100"}], "]"}], "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", " ", "100"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TableForm", "[", 
+  RowBox[{"Transpose", "[", 
+   RowBox[{"{", 
+    RowBox[{"labels", ",", " ", 
+     RowBox[{"Mean", "[", "many", "]"}]}], "}"}], "]"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{" "}]}], "Input",
+ CellChangeTimes->{{3.612267164966304*^9, 3.612267192138155*^9}, {
+   3.612267229464669*^9, 3.612267240682342*^9}, {3.612267335434489*^9, 
+   3.6122673490264215`*^9}, {3.6122673905409184`*^9, 3.612267461266207*^9}, 
+   3.6123577629914865`*^9, {3.6123578095408144`*^9, 3.612358194740608*^9}, {
+   3.6123582283926554`*^9, 3.612358241472109*^9}, 3.6123582895108495`*^9, 
+   3.612425073664362*^9, {3.6124257614192576`*^9, 3.612425763898619*^9}, {
+   3.6124257965657244`*^9, 3.6124259196269083`*^9}, {3.612425970560408*^9, 
+   3.61242599910559*^9}, 3.612426257691822*^9, {3.612426773745219*^9, 
+   3.612426797487829*^9}, {3.6125905482108035`*^9, 3.6125905704960265`*^9}, {
+   3.6125907170946207`*^9, 3.6125907172787943`*^9}, {3.6125907574390373`*^9, 
+   3.6125908926347747`*^9}, {3.612591971487085*^9, 3.6125920077556205`*^9}, {
+   3.612592049156043*^9, 3.612592102282629*^9}, {3.6125921326385365`*^9, 
+   3.612592135837581*^9}, {3.612593456704344*^9, 3.612593512768732*^9}, {
+   3.6125935792340217`*^9, 3.6125935836742496`*^9}, {3.612595178348736*^9, 
+   3.6125951886045003`*^9}, {3.61259538039513*^9, 3.612595386378827*^9}, {
+   3.612595924432178*^9, 3.61259592617884*^9}, {3.6126848523337975`*^9, 
+   3.6126848997599597`*^9}, {3.613067281847409*^9, 3.6130672819975524`*^9}, 
+   3.6130677462816553`*^9}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Italian util\"\>", "42.0007213579554`"},
+    {"\<\"Swiss utility\"\>", "39.642054547416485`"},
+    {"\<\"Fondue price in pizzas\"\>", "0.38317158953497077`"},
+    {"\<\"Swiss wage in pizzas\"\>", "0.18022929522025832`"},
+    {"\<\"Italian wage in pizzas\"\>", "0.22948484659157103`"},
+    {"\<\"Pizzas produced\"\>", "323.27286747874894`"},
+    {"\<\"Fondue produced\"\>", "219.846806014781`"},
+    {"\<\"Pizzas consumed\"\>", "327.84235624050416`"},
+    {"\<\"Fondue consumed\"\>", "213.66968606202283`"},
+    {"\<\"Swiss hours worked\"\>", "999.5693440008486`"},
+    {"\<\"Italian hours worked\"\>", "999.4111772978505`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.6125950806807337`*^9, 3.6125952102130766`*^9, 
+  3.6125959455773096`*^9}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Italian util\"\>", "41.704053231989484`"},
+    {"\<\"Swiss utility\"\>", "39.340480167494455`"},
+    {"\<\"Fondue price in pizzas\"\>", "0.36412226755219346`"},
+    {"\<\"Swiss wage in pizzas\"\>", "0.17121179552705268`"},
+    {"\<\"Italian wage in pizzas\"\>", "0.2168737581295839`"},
+    {"\<\"Pizzas produced\"\>", "928.3704664073645`"},
+    {"\<\"Fondue produced\"\>", "650.6325866318019`"},
+    {"\<\"Pizzas consumed\"\>", "931.3551089771316`"},
+    {"\<\"Fondue consumed\"\>", "640.0108753940983`"},
+    {"\<\"Swiss hours worked\"\>", "2999.8396363692295`"},
+    {"\<\"Italian hours worked\"\>", "2999.829619590152`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.6125950806807337`*^9, 3.6125952102130766`*^9, 
+  3.612595986140936*^9}],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Italian util\"\>", "41.5468942664265`"},
+    {"\<\"Swiss utility\"\>", "39.19233742388589`"},
+    {"\<\"Fondue price in pizzas\"\>", "0.35822231399107046`"},
+    {"\<\"Swiss wage in pizzas\"\>", "0.16815747750871174`"},
+    {"\<\"Italian wage in pizzas\"\>", "0.21280418115984884`"},
+    {"\<\"Pizzas produced\"\>", "3048.5362937776395`"},
+    {"\<\"Fondue produced\"\>", "2120.4250032472146`"},
+    {"\<\"Pizzas consumed\"\>", "3047.6155385760376`"},
+    {"\<\"Fondue consumed\"\>", "2126.9928263701618`"},
+    {"\<\"Swiss hours worked\"\>", "9999.743249706107`"},
+    {"\<\"Italian hours worked\"\>", "9999.745826328146`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.6125950806807337`*^9, 3.6125952102130766`*^9, 
+  3.6125961323311405`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Throwing", " ", "stock", " ", 
+   RowBox[{"away", ":", "\[IndentingNewLine]", 
+    TagBox[GridBox[{
+       {"\"\<Italian util\>\"", "35.16386763419571`"},
+       {"\"\<Swiss utility\>\"", "32.78881860400563`"},
+       {"\"\<Pizza/Fondue price\>\"", "2.2320763351194004`"},
+       {"\"\<Swiss wage in pizzas\>\"", "0.09356062912871116`"},
+       {"\"\<Italian wage in pizzas\>\"", "0.11858887413220294`"},
+       {"\"\<Pizzas produced\>\"", "327.72841580560964`"},
+       {"\"\<Fondue produced\>\"", "200.48432906116028`"},
+       {"\"\<Pizzas consumed\>\"", "169.74386747395408`"},
+       {"\"\<Fondue consumed\>\"", "94.4436045674126`"},
+       {"\"\<Swiss hours worked\>\"", "999.5631357758525`"},
+       {"\"\<Italian hours worked\>\"", "999.5979599376441`"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[2.0999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     Function[BoxForm`e$, 
+      TableForm[BoxForm`e$]]]}]}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.6125950525159144`*^9, 3.6125950825485134`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox[GridBox[{
+     {"\"\<Italian util\>\"", "34.00508105194385`"},
+     {"\"\<Swiss utility\>\"", "31.729312067881928`"},
+     {"\"\<Pizza/Fondue price\>\"", "2.2169762806717914`"},
+     {"\"\<Swiss wage in pizzas\>\"", "0.0834923158869299`"},
+     {"\"\<Italian wage in pizzas\>\"", "0.10483203814347179`"},
+     {"\"\<Pizzas produced\>\"", "915.5943141194558`"},
+     {"\"\<Fondue produced\>\"", "623.732407823719`"},
+     {"\"\<Pizzas consumed\>\"", "451.9547932208969`"},
+     {"\"\<Fondue consumed\>\"", "250.48132644236543`"},
+     {"\"\<Swiss hours worked\>\"", "2999.8447288822804`"},
+     {"\"\<Italian hours worked\>\"", "2999.8414306510367`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[2.0999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   Function[BoxForm`e$, 
+    TableForm[BoxForm`e$]]], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.6125950584916058`*^9, 3.6125950585196323`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox[GridBox[{
+     {"\"\<Italian util\>\"", "33.49719804530719`"},
+     {"\"\<Swiss utility\>\"", "31.242496175739852`"},
+     {"\"\<Pizza/Fondue price\>\"", "2.215558759691588`"},
+     {"\"\<Swiss wage in pizzas\>\"", "0.0795323504231494`"},
+     {"\"\<Italian wage in pizzas\>\"", "0.0996493671922413`"},
+     {"\"\<Pizzas produced\>\"", "2983.638119790988`"},
+     {"\"\<Fondue produced\>\"", "2052.7013078345985`"},
+     {"\"\<Pizzas consumed\>\"", "1433.4162344121248`"},
+     {"\"\<Fondue consumed\>\"", "793.9419838857044`"},
+     {"\"\<Swiss hours worked\>\"", "9999.750187206793`"},
+     {"\"\<Italian hours worked\>\"", "9999.728709379786`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[2.0999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   Function[BoxForm`e$, 
+    TableForm[BoxForm`e$]]], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.612595060299327*^9, 3.612595060326353*^9}}]
+},
+WindowSize->{887, 955},
+WindowMargins->{{21, Automatic}, {Automatic, -4}},
+FrontEndVersion->"9.0 for Microsoft Windows (64-bit) (January 25, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 8863, 217, 912, "Input"],
+Cell[9445, 241, 1232, 27, 177, "Output"],
+Cell[10680, 270, 1230, 27, 177, "Output"],
+Cell[11913, 299, 1233, 27, 177, "Output"]
+}, Open  ]],
+Cell[13161, 329, 1405, 29, 255, "Input"],
+Cell[14569, 360, 1261, 27, 222, "Input"],
+Cell[15833, 389, 1255, 27, 222, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
