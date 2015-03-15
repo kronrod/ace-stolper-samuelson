@@ -1,0 +1,5 @@
+Author: Luzius Meisser
+
+This simulation was created for a term paper for the lecture "Computational Economics and Finance" by Prof. Dr. Karl Schmedders in June 2014.
+
+This is an agent-based simulation of the Stolper-Samuelson effect. There are two goods (pizza and fondue), two types of firms (pizzeria producing pizza and chalet producing fondue), and two types of consumers (Italians and Swiss) that are endowed with either 24 Italian or 24 Swiss man-hours at each round. Both consumers have the same preferences. In the default setting, both prefer pizza over fondue. Producing pizza is ideally done with 3 Italian man-hours for each 2 Swiss man-hours. For fondue, the opposite is the case. Stolper-Samuelson now predicts that Italian wages will be higher than Swiss wages if people prefer pizza over fondue, and vice versa.
