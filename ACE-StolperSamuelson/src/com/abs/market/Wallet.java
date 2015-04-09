@@ -2,6 +2,12 @@
 
 package com.abs.market;
 
+/**
+ * A wallet containing money.
+ * 
+ * @author Luzius
+ *
+ */
 public class Wallet extends Stock {
 	
 	public Wallet(int amount) {
