@@ -15,7 +15,7 @@ import com.abs.market.Market;
 import com.abs.market.Wallet;
 import com.abs.util.DataRecorder;
 
-// The world
+// The world 2
 public class World {
 
 	private Random rand;
