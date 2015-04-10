@@ -15,12 +15,7 @@ import com.abs.market.Market;
 import com.abs.market.Wallet;
 import com.abs.util.DataRecorder;
 
-/**
- * The simulated universe.
- * 
- * @author Luzius
- *
- */
+// The world
 public class World {
 
 	private Random rand;
